@@ -4,7 +4,11 @@ var frendsList = document.querySelector('.frends-list'),
     favoriteList = document.querySelector('.favorites-frends'),
     saveBtn = document.querySelector('.js--save-fav-list'),
     frendListInput = document.querySelector('.js--frends-list-filtr'),
-    favoritListinput = document.querySelector('.js--fav-list-filtr');
+    favoritListinput = document.querySelector('.js--fav-list-filtr'),
+    enterFild = document.querySelector('.js--enter-fild'),
+    enterButton = document.querySelector('.js--load-frends-list'),
+    mClose = document.querySelector('.js--close-modal'),
+    modalWindow = document.querySelector('.modal-wrap');
 
 VK.init({
 	apiId: 5973051
@@ -12,24 +16,63 @@ VK.init({
 
 //load album list
 
-VK.Auth.login(function (result) {
-
-	if (result.status == 'connected') {
-		console.info('Успешная авторизация');
-
-		VK.api('friends.get', {
-			v: 5.63,
-			owner_id: 21222203,
-			order: 'name',
-			fields: 'photo_100'
-		}, function (result) {
-			console.log(result);
-			drawFrends(result.response.items);
-		});
-	} else {
-		console.error("Не успешная авторизация");
+enterFild.addEventListener('keypress', function (event) {
+	if (event.keyCode == 13) {
+		if (isNumeric(enterFild.value)) {
+			enter();
+			visabilityModal();
+			return false;
+		} else {
+			alert('ProfileId состоит только из числа!');
+		}
 	}
-}, 4);
+});
+
+enterButton.addEventListener('click', function () {
+	if (isNumeric(enterFild.value)) {
+		enter();
+		visabilityModal();
+	} else {
+		alert('ProfileId состоит только из числа!');
+	}
+});
+
+modalWindow.addEventListener('click', function (e) {
+	return e.target === modalWindow ? modalWindow.style.display = 'none' : null;
+});
+mClose.addEventListener('click', function (e) {
+	return modalWindow.style.display = 'none';
+});
+
+function visabilityModal() {
+
+	modalWindow.style.display = 'block';
+}
+
+function isNumeric(n) {
+	return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+function enter() {
+	var val = enterFild.value;
+	VK.Auth.login(function (result) {
+
+		if (result.status == 'connected') {
+			console.info('Успешная авторизация');
+			VK.api('friends.get', {
+				v: 5.64,
+				user_id: val,
+				order: 'name',
+				fields: 'photo_100'
+			}, function (result) {
+				console.log(result);
+				drawFrends(result.response.items);
+			});
+		} else {
+			console.error("Не успешная авторизация");
+		}
+	}, 4);
+}
 
 function drawFrends(data) {
 	remove_duplicates(data);
@@ -278,4 +321,3 @@ favoritListinput.addEventListener('keyup', function () {
 });
 
 LoadLocal();
-//console.log(retObj)
