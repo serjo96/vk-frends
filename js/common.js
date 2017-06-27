@@ -256,7 +256,7 @@ function deleteLocal(e) {
 }
 
 if (Object.keys(localStorage) == 0) {
-	var retObj = '';
+	var retObj;
 } else {
 	var retObj = JSON.parse(localStorage['frend']);
 }
