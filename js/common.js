@@ -255,10 +255,11 @@ function deleteLocal(e) {
 	}
 }
 
+var retObj;
 if (Object.keys(localStorage) == 0) {
-	var retObj;
+	retObj = [];
 } else {
-	var retObj = JSON.parse(localStorage['frend']);
+	retObj = JSON.parse(localStorage['frend']);
 }
 
 function LoadLocal() {
