@@ -259,7 +259,7 @@ var retObj;
 if (Object.keys(localStorage) == 0) {
 	retObj = [];
 } else {
-	retObj = JSON.parse(localStorage['frend']);
+	var retObj = JSON.parse(localStorage['frend']);
 }
 
 function LoadLocal() {
