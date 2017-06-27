@@ -75,6 +75,7 @@ function enter() {
 }
 
 function drawFrends(data) {
+	console.log(data);
 	remove_duplicates(data);
 	for (var i = 0; i < data.length - 1; i++) {
 		createElList(data[i].photo_100, data[i].first_name, data[i].last_name, data[i].id);
@@ -124,7 +125,6 @@ wrapFrends.addEventListener('mousedown', function (e) {
 				cloneEl.lastChild.className = 'frends-list__del-fav add-btn';
 				console.log(cloneEl);
 				el.appendChild(cloneEl);
-				//			  createElFav(frendItem.childNodes[1].innerHTML,frendItem.childNodes[0].src);
 			}
 		};
 
