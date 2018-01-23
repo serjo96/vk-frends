@@ -40,7 +40,7 @@ enterButton.addEventListener('click', function () {
 modalWindow.addEventListener('click', function (e) {
 	return e.target === modalWindow ? modalWindow.style.display = 'none' : null;
 });
-mClose.addEventListener('click', function (e) {
+mClose.addEventListener('click', function () {
 	return modalWindow.style.display = 'none';
 });
 
@@ -255,7 +255,7 @@ function deleteLocal(e) {
 	}
 }
 
-var retObj;
+var retObj = [];
 if (Object.keys(localStorage) == 0) {
 	retObj = [];
 } else {
